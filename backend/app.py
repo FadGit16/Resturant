@@ -1,19 +1,16 @@
 from flask import Flask, request, jsonify
+from flask_mysqldb import MySQL
 import pymysql
 
 app = Flask(__name__)
 
-# Database configuration
-db_config = {
-    'host': 'localhost',
-    'password': 'root',
-    'database': 'resturant',
-    'cursorclass': pymysql.cursors.DictCursor
-}
+# MySQL configuration
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = 'root'  
+app.config['MYSQL_DB'] = 'coffee_shop'
 
-# Function to connect to the database
-def get_db_connection():
-    return pymysql.connect(**db_config)
+mysql = MySQL(app)
 
 # Route to add a menu item
 @app.route('/add-menu', methods=['POST'])
